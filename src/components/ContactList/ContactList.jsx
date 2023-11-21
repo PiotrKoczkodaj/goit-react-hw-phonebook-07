@@ -3,34 +3,32 @@ import { getContacts } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contactsSlice/contactsSlice';
 import { getFilter } from 'redux/selectors';
+import { useEffect } from 'react';
+
 
 export const ContactList = () => {
-  let contacts = useSelector(getContacts);
-
-  if (localStorage.lenght === 0) {
-    localStorage.setItem('Persons', JSON.stringify(contacts));
-  }
+const dispatch = useDispatch();
+  const contacts = useSelector(getContacts).items;
 
   let filterValue = useSelector(getFilter);
-  const dispatch = useDispatch();
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filterValue)
-  );
+//   const filteredContacts = contacts.filter(contact =>
+//     contact.name.toLowerCase().includes(filterValue)
+//   );
 
-  const handleClick = e => {
-    const contactId = e.target.id;
-    dispatch(deleteContact(contactId));
-  };
+//    const handleClick = e => {
+//      const contactId = e.target.id;
+//     dispatch(deleteContact(contactId));
+//    };
 
   return (
     <div>
-      {filteredContacts.map(contact => (
+      {contacts.map(contact => (
         <p key={nanoid()}>
           {contact.name}
           {''}
           {contact.number}
-          <button onClick={handleClick} id={contact.id}>
+          <button  id={contact.id}>
             delete
           </button>
         </p>
