@@ -7,10 +7,10 @@ export const ContactForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
-    const nameValue = form.elements[0].value;
-    const number = form.elements[1].value;
-    dispatch(addContact({ nameValue, number }));
+    const name = form.elements[0].value;
+    const phone = form.elements[1].value;
     form.reset();
+    dispatch(addContact({ name, phone }));
   };
 
   return (
