@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from '@reduxjs/toolkit';
-import { fetchContacts } from 'redux/operations';
+import { deleteContact, fetchContacts } from 'redux/operations';
 import { addContact } from 'redux/operations';
 
 
@@ -31,10 +31,19 @@ const contactsSlice = createSlice({
       .addCase(addContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items.push(action.payload)
-    })
+      }).addCase(addContact.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error= action.payload
+      }).addCase(deleteContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+         const index = state.items.findIndex(
+            task => task.id === action.payload.id
+        )
+        state.items.splice(index, 1);
+      })
+    
   },
 });
 
-export const { fetchingSucces, fetchingInProgress, fetchingError } =
-  contactsSlice.actions;
+
 export const contactsReducer = contactsSlice.reducer;
