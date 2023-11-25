@@ -3,15 +3,18 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
 
 export const App = () => {
   const dispatch = useDispatch();
+  const contactsState = useSelector(getContacts);
+  const loading = contactsState.isLoading;
 
-   useEffect(() => {
-       dispatch(fetchContacts());
-     }, [dispatch]);
-  
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <div
       style={{
@@ -28,7 +31,7 @@ export const App = () => {
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />
-       <ContactList /> 
+      {loading ? <p>Loading...</p> : <ContactList />}
     </div>
   );
 };

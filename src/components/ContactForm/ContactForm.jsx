@@ -9,8 +9,8 @@ export const ContactForm = () => {
     const form = e.currentTarget;
     const name = form.elements[0].value;
     const phone = form.elements[1].value;
-    form.reset();
     dispatch(addContact({ name, phone }));
+    form.reset();
   };
 
   return (

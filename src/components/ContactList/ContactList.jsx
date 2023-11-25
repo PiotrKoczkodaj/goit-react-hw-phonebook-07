@@ -3,25 +3,20 @@ import { getContacts } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 import { getFilter } from 'redux/selectors';
-import { useEffect } from 'react';
-
 
 export const ContactList = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const contacts = useSelector(getContacts).items;
-
-  let filterValue = useSelector(getFilter);
+  const filterValue = useSelector(getFilter);
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterValue)
   );
 
-   const handleClick = e => {
-     const contactId = e.target.id;
-
-         dispatch(deleteContact(contactId));
-  
-   };
+  const handleClick = e => {
+    const contactId = e.target.id;
+    dispatch(deleteContact(contactId));
+  };
 
   return (
     <div>
@@ -30,7 +25,7 @@ const dispatch = useDispatch();
           {contact.name}
           {''}
           {contact.number}
-          <button onClick={handleClick}  id={contact.id}>
+          <button onClick={handleClick} id={contact.id}>
             delete
           </button>
         </p>
